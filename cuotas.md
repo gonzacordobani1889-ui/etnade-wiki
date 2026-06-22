@@ -2,8 +2,8 @@
 
 ## Valores
 
-- **Gastos de funcionamiento: $72.220 
-- **Comedor $92.855 
+- Gastos de funcionamiento: $72.220 
+- Comedor $92.855 
 
 ## Vencimiento
 
