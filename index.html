@@ -258,32 +258,86 @@
     display: block;
   }
 
-  /* ===== CONTENEDOR DE CHAT IFRAME ===== */
-  .chat-container {
+  /* ===== NUEVA COCTELERA DE CHAT NATIVO ===== */
+  .chat-box {
     width: 100%;
-    height: 70vh;
+    height: 55vh;
     border: 2px solid #E5DECF;
     border-radius: 16px;
-    overflow: hidden;
     background-color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
   }
 
-  .chat-container iframe {
-    width: 100%;
-    height: 100%;
+  .chat-messages {
+    flex: 1;
+    padding: 14px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .msg {
+    max-width: 80%;
+    padding: 12px 16px;
+    border-radius: 14px;
+    font-size: 16px;
+    line-height: 1.4;
+    word-wrap: break-word;
+  }
+
+  .msg.user {
+    background-color: #2D6CA6;
+    color: #FFFFFF;
+    align-self: flex-end;
+    border-bottom-right-radius: 2px;
+  }
+
+  .msg.agent {
+    background-color: #EAE8E3;
+    color: #1A1A1A;
+    align-self: flex-start;
+    border-bottom-left-radius: 2px;
+  }
+
+  .chat-input-area {
+    display: flex;
+    border-top: 1px solid #E5DECF;
+    padding: 10px;
+    background-color: #FAF9F6;
+  }
+
+  .chat-input-area input {
+    flex: 1;
+    padding: 12px;
+    border: 1px solid #C4BEB3;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+  }
+
+  .chat-input-area button {
+    background-color: #2D4A3E;
+    color: #FFFFFF;
     border: none;
+    padding: 0 16px;
+    margin-left: 8px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
 
   <div class="header">
-    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFlODAxMDAwMDViMDMwMDAwMmQwNTAwMDAzYTA2MDAwMDY4MDYwMDAwM2MwYTAwMDA4ZTBlMDAwMGU4MGUwMDAwY2MwZjAwMDBmNjBmMDAwMDNhMTQwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EALMAAQACAwEBAAAAAAAAAAAAAAAFBwMEBgECEAACAQMBBQYDBQkAAAAAAAABAgMABBESBRQgITEQEyIwQVEjUIEzYZGh8BUyNEBSYnHh8REAAQIDBAQLBQYHAAAAAAAAAQIRABIxAyFBUSJhcZEQEyAyQlJigaGx0TByssHhIzNQU6LwY3OCkrPC4hIBAAEDAwMDBQADAQAAAAAAAREAITFBUWFxgZEQIKEwscHR8FDh8UD/2gAIA微型" alt="Logo ETNADE">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFlODAxMDAwMDViMDMwMDAwMmQwNTAwMDAzYTA2MDAwMDY4MDYwMDAwM2MwYTAwMDA4ZTBlMDAwMGU4MGUwMDAwY2MwZjAwMDBmNjBmMDAwMDNhMTQwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EALMAAQACAwEBAAAAAAAAAAAAAAAFBwMEBgECEAACAQMBBQYDBQkAAAAAAAABAgMABBESBRQgITEQEyIwQVEjUIEzYZGh8BUyNEBSYnHh8REAAQIDBAQLBQYHAAAAAAAAAQIRABIxAyFBUSJhcZEQEyAyQlJigaGx0TByssHhIzNQU6LwY3OCkrPC4hIBAAEDAwMDBQADAQAAAAAAAREAITFBUWFxwZEQIKEwscHR8FDh8UD/2gAIME微型" alt="Logo ETNADE">
     <h1>E.T.N.A.D.E.</h1>
     <p>ASISTENTE PARA FAMILIAS</p>
   </div>
 
-  <!-- ============ PANTALLA PRINCIPAL ============ -->
   <div class="screen active" id="screen-inicio">
     <div class="main">
 
@@ -303,7 +357,6 @@
 
       <div class="secondary-title">¿Tenés otra consulta?</div>
 
-      <!-- CORREGIDO: Ahora abre la pantalla interna del chat en vez de tirar el GET directo -->
       <button class="small-button" onclick="mostrarPantalla('screen-chat')">
         💬 Hablar con ETNADE
       </button>
@@ -316,7 +369,6 @@
     </div>
   </div>
 
-  <!-- ============ PANTALLA: CONSULTAR CUOTA ============ -->
   <div class="screen" id="screen-consultar">
     <div class="main">
 
@@ -325,7 +377,6 @@
       <div class="form-title">Consultar cuota</div>
       <div class="form-subtitle">Ingresá el DNI del alumno</div>
 
-      <!-- AGREGADO: Atajo para ejecutar con Enter al escribir -->
       <input type="tel" inputmode="numeric" pattern="[0-9]*" class="dni-input" id="dni-input" placeholder="Ej: 38123456" maxlength="8" onkeydown="if(event.key === 'Enter') consultarDNI()">
 
       <button class="submit-button" onclick="consultarDNI()">Consultar</button>
@@ -337,19 +388,28 @@
     </div>
   </div>
 
-  <!-- ============ PANTALLA NUEVA: CHAT INCRASTADO ============ -->
   <div class="screen" id="screen-chat">
     <div class="main">
       <a class="back-link" href="#" onclick="mostrarPantalla('screen-inicio'); return false;">← Volver al Menú</a>
       
-      <div class="chat-container">
-        <!-- n8n Chat embebido de forma segura -->
-        <iframe src="https://vps-6071392-x.dattaweb.com/webhook/9e6e69c1-9602-486e-8553-448492f9b0f6/chat"></iframe>
+      <div class="form-title" style="margin-bottom: 12px;">Asistente Virtual</div>
+
+      <div class="chat-box">
+        <div class="chat-messages" id="chat-messages">
+          <div class="msg agent">Hola, soy el asistente virtual de ETNADE. ¿En qué puedo ayudarte?</div>
+        </div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Escribí tu mensaje acá..." onkeydown="if(event.key === 'Enter') enviarMensajeChat()">
+          <button onclick="enviarMensajeChat()">Enviar</button>
+        </div>
       </div>
     </div>
   </div>
 
   <script>
+    // Variable para identificar de forma única la sesión del chat de este usuario
+    var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
+
     function mostrarPantalla(id) {
       var pantallas = document.querySelectorAll('.screen');
       for (var i = 0; i < pantallas.length; i++) {
@@ -408,6 +468,71 @@
           resultBox.textContent = 'No pudimos conectar. Probá de nuevo en un momento.';
           resultBox.classList.add('show', 'result-error');
         });
+    }
+
+    // ===== FUNCIÓN PARA ENVIAR CONSULTAS AL AGENTE DE IA =====
+    function enviarMensajeChat() {
+      var inputEl = document.getElementById('chat-input');
+      var texto = inputEl.value.trim();
+      if (!texto) return;
+
+      var container = document.getElementById('chat-messages');
+
+      // 1. Mostrar mensaje del usuario en burbuja azul
+      var userMsg = document.createElement('div');
+      userMsg.className = 'msg user';
+      userMsg.textContent = texto;
+      container.appendChild(userMsg);
+      inputEl.value = '';
+      container.scrollTop = container.scrollHeight;
+
+      // 2. Mostrar indicador de "Escribiendo..." temporal
+      var typingMsg = document.createElement('div');
+      typingMsg.className = 'msg agent';
+      typingMsg.id = 'typing-indicator';
+      typingMsg.textContent = 'Escribiendo...';
+      container.appendChild(typingMsg);
+      container.scrollTop = container.scrollHeight;
+
+      // URL de tu n8n sacada del JSON del flujo ("path": "etnade-chat")
+      var URL_AGENT = "https://vps-6071392-x.dattaweb.com/webhook/c99e3b57-5434-4e5a-90a8-b0f9f6167bef/etnade-chat";
+
+      // 3. Petición POST estructurada para tu AI Agent
+      fetch(URL_AGENT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: texto,
+          sessionId: chatSessionId
+        })
+      })
+      .then(function(res) {
+        return res.json();
+      })
+      .then(function(data) {
+        // Remover indicador de carga
+        var indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+
+        // Obtener la respuesta de la propiedad "reply" según tu nodo "Respond to Webhook"
+        var respuestaIA = (data && data.reply) ? data.reply : "Te recomiendo comunicarte con administración para resolver esa consulta.";
+
+        var agentMsg = document.createElement('div');
+        agentMsg.className = 'msg agent';
+        agentMsg.textContent = respuestaIA;
+        container.appendChild(agentMsg);
+        container.scrollTop = container.scrollHeight;
+      })
+      .catch(function() {
+        var indicator = document.getElementById('typing-indicator');
+        if (indicator) indicator.remove();
+
+        var errorMsg = document.createElement('div');
+        errorMsg.className = 'msg agent';
+        errorMsg.textContent = "Te recomiendo comunicarte con administración para resolver esa consulta.";
+        container.appendChild(errorMsg);
+        container.scrollTop = container.scrollHeight;
+      });
     }
   </script>
 
