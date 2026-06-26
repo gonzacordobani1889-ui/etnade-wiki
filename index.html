@@ -135,6 +135,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-bottom: 14px;
+    cursor: pointer;
   }
 
   .phone-box {
@@ -157,7 +158,7 @@
     color: #2D4A3E;
   }
 
-  /* ===== PANTALLA: CONSULTAR CUOTA ===== */
+  /* ===== PANTALLAS ===== */
   .screen {
     display: none;
   }
@@ -256,12 +257,28 @@
   .loading-text.show {
     display: block;
   }
+
+  /* ===== CONTENEDOR DE CHAT IFRAME ===== */
+  .chat-container {
+    width: 100%;
+    height: 70vh;
+    border: 2px solid #E5DECF;
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #FFFFFF;
+  }
+
+  .chat-container iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
 </style>
 </head>
 <body>
 
   <div class="header">
-    <img src="data:image/jpeg;base64,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" alt="Logo ETNADE">
+    <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/7QCEUGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAGgcAigAYkZCTUQwYTAwMGFlODAxMDAwMDViMDMwMDAwMmQwNTAwMDAzYTA2MDAwMDY4MDYwMDAwM2MwYTAwMDA4ZTBlMDAwMGU4MGUwMDAwY2MwZjAwMDBmNjBmMDAwMDNhMTQwMDAwAP/bAIQABQYGCwgLCwsLCw0LCwsNDg4NDQ4ODw0ODg4NDxAQEBEREBAQEA8TEhMPEBETFBQTERMWFhYTFhUVFhkWGRYWEgEFBQUKBwoICQkICwgKCAsKCgkJCgoMCQoJCgkMDQsKCwsKCw0MCwsICwsMDAwNDQwMDQoLCg0MDQ0MExQTExOc/8IAEQgAlgCWAwEiAAIRAQMRAf/EALMAAQACAwEBAAAAAAAAAAAAAAAFBwMEBgECEAACAQMBBQYDBQkAAAAAAAABAgMABBESBRQgITEQEyIwQVEjUIEzYZGh8BUyNEBSYnHh8REAAQIDBAQLBQYHAAAAAAAAAQIRABIxAyFBUSJhcZEQEyAyQlJigaGx0TByssHhIzNQU6LwY3OCkrPC4hIBAAEDAwMDBQADAQAAAAAAAREAITFBUWFxgZEQIKEwscHR8FDh8UD/2gAIA微型" alt="Logo ETNADE">
     <h1>E.T.N.A.D.E.</h1>
     <p>ASISTENTE PARA FAMILIAS</p>
   </div>
@@ -286,9 +303,10 @@
 
       <div class="secondary-title">¿Tenés otra consulta?</div>
 
-      <a class="small-button" href="https://vps-6071392-x.dattaweb.com/webhook/etnade-chat" target="_blank" rel="noopener">
+      <!-- CORREGIDO: Ahora abre la pantalla interna del chat en vez de tirar el GET directo -->
+      <button class="small-button" onclick="mostrarPantalla('screen-chat')">
         💬 Hablar con ETNADE
-      </a>
+      </button>
 
       <div class="phone-box">
         <div class="phone-label">Teléfono de Administración</div>
@@ -307,7 +325,8 @@
       <div class="form-title">Consultar cuota</div>
       <div class="form-subtitle">Ingresá el DNI del alumno</div>
 
-      <input type="tel" inputmode="numeric" pattern="[0-9]*" class="dni-input" id="dni-input" placeholder="Ej: 38123456" maxlength="8">
+      <!-- AGREGADO: Atajo para ejecutar con Enter al escribir -->
+      <input type="tel" inputmode="numeric" pattern="[0-9]*" class="dni-input" id="dni-input" placeholder="Ej: 38123456" maxlength="8" onkeydown="if(event.key === 'Enter') consultarDNI()">
 
       <button class="submit-button" onclick="consultarDNI()">Consultar</button>
 
@@ -315,6 +334,18 @@
 
       <div class="result-box" id="result-box"></div>
 
+    </div>
+  </div>
+
+  <!-- ============ PANTALLA NUEVA: CHAT INCRASTADO ============ -->
+  <div class="screen" id="screen-chat">
+    <div class="main">
+      <a class="back-link" href="#" onclick="mostrarPantalla('screen-inicio'); return false;">← Volver al Menú</a>
+      
+      <div class="chat-container">
+        <!-- n8n Chat embebido de forma segura -->
+        <iframe src="https://vps-6071392-x.dattaweb.com/webhook/9e6e69c1-9602-486e-8553-448492f9b0f6/chat"></iframe>
+      </div>
     </div>
   </div>
 
@@ -326,7 +357,6 @@
       }
       document.getElementById(id).classList.add('active');
 
-      // Limpiar resultado anterior al volver a entrar
       if (id === 'screen-consultar') {
         document.getElementById('dni-input').value = '';
         document.getElementById('result-box').classList.remove('show', 'result-ok', 'result-error');
@@ -341,7 +371,6 @@
 
       resultBox.classList.remove('show', 'result-ok', 'result-error');
 
-      // Validación simple: 7 u 8 dígitos
       if (!/^[0-9]{7,8}$/.test(dni)) {
         resultBox.textContent = 'Ingresá un DNI válido (7 u 8 números).';
         resultBox.classList.add('show', 'result-error');
@@ -350,12 +379,6 @@
 
       loadingText.classList.add('show');
 
-      // ============================================
-      // REEMPLAZAR ESTA URL con el webhook de n8n
-      // que recibe el DNI y devuelve el monto.
-      // Debe responder en formato JSON, por ejemplo:
-      // { "monto": 72220 }   o   { "encontrado": false }
-      // ============================================
       var URL_WEBHOOK_CONSULTA = "https://vps-6071392-x.dattaweb.com/webhook/consultar-cuota";
 
       fetch(URL_WEBHOOK_CONSULTA, {
