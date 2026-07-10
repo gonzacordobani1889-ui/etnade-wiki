@@ -207,7 +207,7 @@
   </button>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
 <script>
   var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
 
@@ -324,13 +324,14 @@
     screen.style.display = 'flex';
     var container = document.getElementById('qr-container');
     if (!container.hasChildNodes()) {
-      new QRCode(container, {
-        text: "https://gonzacordobani1889-ui.github.io/etnade-wiki/",
-        width: 220,
-        height: 220,
-        colorDark: "#2D4A3E",
-        colorLight: "#FFFFFF"
-      });
+      var url = "https://gonzacordobani1889-ui.github.io/etnade-wiki/";
+      var img = document.createElement('img');
+      img.src = "https://chart.googleapis.com/chart?cht=qr&chs=220x220&chl=" + encodeURIComponent(url) + "&chco=2D4A3E";
+      img.alt = "QR ETNADE";
+      img.style.display = "block";
+      img.style.width = "220px";
+      img.style.height = "220px";
+      container.appendChild(img);
     }
   }
 
