@@ -1,4 +1,4 @@
-# Comprobantes de Pago — ETNADE
+# Comprobantes de Pago 
 
 Una vez realizada la transferencia o el pago, podés enviar el comprobante de alguna de estas formas:
 
