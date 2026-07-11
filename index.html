@@ -208,7 +208,13 @@
 </div>
 
 <script src="qrcode.min.js"></script>
-<script>
+
+ <script>
+  
+  console.log("VERSIÓN NUEVA CARGADA");
+  console.log("QRCode:", typeof QRCode);
+
+  
   var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
 
   function mostrarPantalla(id) {
