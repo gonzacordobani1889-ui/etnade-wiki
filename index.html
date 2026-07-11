@@ -207,7 +207,7 @@
   </button>
 </div>
 
-
+<script src="qrcode.min.js"></script>
 <script>
   var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
 
@@ -312,32 +312,34 @@
     });
   }
 
-  // QR DEMO
-  (function() {
-    if (window.location.search.includes('demo=true')) {
-      mostrarQR();
-    }
-  })();
-
-  function mostrarQR() {
-    var screen = document.getElementById('screen-qr');
-    screen.style.display = 'flex';
-    var container = document.getElementById('qr-container');
-    if (!container.hasChildNodes()) {
-      var url = "https://gonzacordobani1889-ui.github.io/etnade-wiki/";
-      var img = document.createElement('img');
-      img.src = "https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=" + encodeURIComponent(url) + "&color=2D4A3E&bgcolor=FFFFFF";
-      img.alt = "QR ETNADE";
-      img.style.display = "block";
-      img.style.width = "220px";
-      img.style.height = "220px";
-      container.appendChild(img);
-    }
+ // QR DEMO
+(function() {
+  if (window.location.search.includes('demo=true')) {
+    mostrarQR();
   }
+})();
 
-  function cerrarQR() {
-    document.getElementById('screen-qr').style.display = 'none';
-  }
+function mostrarQR() {
+  document.getElementById('screen-qr').style.display = 'flex';
+
+  const container = document.getElementById('qr-container');
+
+  // Borra el QR anterior si existe
+  container.innerHTML = '';
+
+  new QRCode(container, {
+    text: 'https://gonzacordobani1889-ui.github.io/etnade-wiki/',
+    width: 220,
+    height: 220,
+    colorDark: '#2D4A3E',
+    colorLight: '#FFFFFF',
+    correctLevel: QRCode.CorrectLevel.H
+  });
+}
+
+function cerrarQR() {
+  document.getElementById('screen-qr').style.display = 'none';
+}
 </script>
 
 </body>
