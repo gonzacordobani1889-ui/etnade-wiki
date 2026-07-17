@@ -417,6 +417,16 @@ function cerrarQR() {
   document.getElementById('screen-qr').style.display = 'none';
 }
 </script>
-
+<script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const splash = document.getElementById('splash-screen');
+        setTimeout(() => {
+          splash.style.opacity = '0';
+          setTimeout(() => {
+            splash.style.display = 'none';
+          }, 800);
+        }, 2000);
+      });
+    </script>
 </body>
 </html>
