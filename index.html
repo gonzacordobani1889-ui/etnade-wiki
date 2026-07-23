@@ -196,28 +196,25 @@
 <div class="screen active" id="screen-inicio">
   <div class="main">
     <div class="question">¿Qué necesitás hacer?</div>
-
     <button class="big-button btn-consultar" onclick="mostrarPantalla('screen-consultar')">
       <span class="icon">💰</span>
       <span class="label">Consultar cuánto<br>debo pagar</span>
     </button>
-
     <a class="big-button btn-comprobante" href="https://docs.google.com/forms/d/e/1FAIpQLSdPbT658m1VBJXq3zhukcFYHT1oC5aT0_VNvHlypGvIiPq8QA/viewform?usp=publish-editor" target="_blank" rel="noopener">
       <span class="icon">📷</span>
       <span class="label">Enviar comprobante<br>de pago</span>
     </a>
-
     <div class="divider"></div>
-    <div class="secondary-title">¿Tenés otra consulta?</div>
-
+    <div class="secondary-title">Información de la escuela</div>
+    <button class="small-button" onclick="mostrarInfo('horarios')">🕒 Horarios de atención</button>
+    <button class="small-button" onclick="mostrarInfo('direccion')">📍 Dónde queda la escuela</button>
+    <button class="small-button" onclick="mostrarInfo('contacto')">📞 Teléfono y correo</button>
+    <button class="small-button" onclick="mostrarInfo('medios_pago')">💳 Medios de pago y vencimiento</button>
+    <div class="divider"></div>
+    <div class="secondary-title">¿Otra consulta?</div>
     <button class="small-button" onclick="mostrarPantalla('screen-chat')">
       💬 Hablar con ETNADE
     </button>
-
-    <div class="phone-box">
-      <div class="phone-label">Teléfono de Administración</div>
-      <div class="phone-number">📞 3412134641</div>
-    </div>
   </div>
 </div>
 
@@ -286,6 +283,17 @@
  <script>
   
   var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
+
+  var INFO_ETNADE = {
+    horarios: "Atendemos de lunes a viernes de 9:00 a 16:00 hs.",
+    direccion: "Estamos en Pasco 3737, Rosario.",
+    contacto: "📞 Teléfono: 3412134641\n✉️ Correo: etnade.escuelaespecial1241@gmail.com",
+    medios_pago: "Podés pagar por transferencia o en efectivo. El vencimiento es el día 10 de cada mes."
+  };
+
+  function mostrarInfo(clave) {
+    alert(INFO_ETNADE[clave]);
+  }
 
   function mostrarPantalla(id) {
     var pantallas = document.querySelectorAll('.screen');
