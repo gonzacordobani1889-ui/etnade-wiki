@@ -200,10 +200,10 @@
       <span class="icon">💰</span>
       <span class="label">Consultar cuánto<br>debo pagar</span>
     </button>
-    <a class="big-button btn-comprobante" href="https://docs.google.com/forms/d/e/1FAIpQLSdPbT658m1VBJXq3zhukcFYHT1oC5aT0_VNvHlypGvIiPq8QA/viewform?usp=publish-editor" target="_blank" rel="noopener">
-      <span class="icon">📷</span>
+   <button class="big-button btn-comprobante" onclick="mostrarPantalla('screen-comprobante'); iniciarComprobante();">
+      <span class="icon">📄</span>
       <span class="label">Enviar comprobante<br>de pago</span>
-    </a>
+    </button>
     <div class="divider"></div>
     <div class="secondary-title">Información de la escuela</div>
     <button class="small-button" onclick="mostrarInfo('horarios')">🕒 Horarios de atención</button>
@@ -230,7 +230,22 @@
     <div class="result-box" id="result-box"></div>
   </div>
 </div>
+<!-- PANTALLA COMPROBANTE -->
+<div class="screen" id="screen-comprobante">
+  <div class="main">
+    <a class="back-link" href="#" onclick="mostrarPantalla('screen-inicio'); return false;">← Volver</a>
+    <div class="form-title">Enviar comprobante</div>
+    <div class="form-subtitle">Completá los datos y adjuntá la imagen o PDF</div>
 
+    <input type="tel" inputmode="numeric" class="dni-input" id="comp-dni" placeholder="DNI del alumno" maxlength="8" style="margin-bottom:12px;">
+    <input type="text" class="dni-input" id="comp-nombre" placeholder="Nombre y apellido de quien paga" style="font-size:18px; margin-bottom:12px;">
+    <input type="file" id="comp-archivo" accept="image/*,application/pdf" style="width:100%; margin-bottom:16px; padding:10px;">
+
+    <button class="submit-button" onclick="enviarComprobante()">Enviar</button>
+    <div class="loading-text" id="comp-loading">Enviando comprobante...</div>
+    <div class="result-box" id="comp-result"></div>
+  </div>
+</div>
 <!-- PANTALLA CHAT -->
 <div class="screen" id="screen-chat">
   <div class="main">
@@ -280,7 +295,7 @@
 
 <script src="qrcode.min.js"></script>
 
- <script>
+  <script>
   
   var chatSessionId = "session_" + Math.random().toString(36).substring(2, 11);
 
@@ -293,6 +308,55 @@
 
   function mostrarInfo(clave) {
     alert(INFO_ETNADE[clave]);
+  }
+
+  function enviarComprobante() {
+    var dni = document.getElementById('comp-dni').value.trim();
+    var nombre = document.getElementById('comp-nombre').value.trim();
+    var archivo = document.getElementById('comp-archivo').files[0];
+    var resultBox = document.getElementById('comp-result');
+    var loading = document.getElementById('comp-loading');
+
+    resultBox.classList.remove('show', 'result-ok', 'result-error');
+
+    if (!/^[0-9]{7,8}$/.test(dni)) {
+      resultBox.textContent = 'Ingresá un DNI válido (7 u 8 números).';
+      resultBox.classList.add('show', 'result-error');
+      return;
+    }
+    if (!nombre) {
+      resultBox.textContent = 'Ingresá el nombre de quien realizó el pago.';
+      resultBox.classList.add('show', 'result-error');
+      return;
+    }
+    if (!archivo) {
+      resultBox.textContent = 'Adjuntá la imagen o PDF del comprobante.';
+      resultBox.classList.add('show', 'result-error');
+      return;
+    }
+
+    var formData = new FormData();
+    formData.append('dni', dni);
+    formData.append('nombre_responsable', nombre);
+    formData.append('data', archivo);
+
+    loading.classList.add('show');
+
+    fetch("https://vps-6071392-x.dattaweb.com/webhook-test/enviar-comprobante", {
+      method: "POST",
+      body: formData
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      loading.classList.remove('show');
+      resultBox.textContent = '✅ Comprobante recibido. La administración lo va a revisar y registrar el pago.';
+      resultBox.classList.add('show', 'result-ok');
+    })
+    .catch(function() {
+      loading.classList.remove('show');
+      resultBox.textContent = 'No pudimos enviar el comprobante. Probá de nuevo en un momento.';
+      resultBox.classList.add('show', 'result-error');
+    });
   }
 
   function mostrarPantalla(id) {
@@ -395,7 +459,6 @@
       inputEl.focus();
     });
   }
-
  // QR DEMO
 (function() {
   if (window.location.search.includes('demo=true')) {
